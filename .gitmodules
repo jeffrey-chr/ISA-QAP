@@ -1,0 +1,3 @@
+[submodule "Instances"]
+	path = Instances
+	url = git@github.com:jeffrey-chr/ISA-QAP-Instances.git

@@ -1,3 +1,12 @@
 [submodule "Instances"]
 	path = Instances
 	url = git@github.com:jeffrey-chr/ISA-QAP-Instances.git
+[submodule "Algorithms"]
+	path = Algorithms
+	url = git@github.com:jeffrey-chr/ISA-QAP-Algorithms.git
+[submodule "InstanceGeneration"]
+	path = InstanceGeneration
+	url = git@github.com:jeffrey-chr/ISA-QAP-InstanceGeneration.git
+[submodule "Features"]
+	path = Features
+	url = git@github.com:jeffrey-chr/ISA-QAP-Features.git

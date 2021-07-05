@@ -6,60 +6,20 @@ function [dist, flow] = qap_readFile(filename)
 % B
 % where A and B are n x n matrices with columns separated
 % by whitespace and a new line for each row. Multiple newlines
-% may or may not separate the three components, and 
+% may or may not separate the three components, and each line
+% of the matrix may correspond to one or more lines in the file.
+% We're just going to read all the numbers in order 
+% and arrange them accordingly.
 
 fid = fopen(filename);
-tline = fgetl(fid);
-n = str2num(strtrim(tline));
-dist = zeros(n);
-flow = zeros(n);
-tline = fgetl(fid);
-cells = regexp(strtrim(tline), '\s{1,}', 'split');
-
-if size(cells,2) == 1
-	cellNo = 2;
-else
-	cellNo = 1;
-end
-
-for i = 1:n
-	for j = 1:n
-		if cellNo > size(cells,2)
-			tline = fgetl(fid);
-			cells = regexp(strtrim(tline), '\s{1,}', 'split');
-			cellNo = 1;
-		end
-		
-		while size(strtrim(tline), 2) == 0
-			tline = fgetl(fid);
-			cells = regexp(strtrim(tline), '\s{1,}', 'split');
-			cellNo = 1;
-		end
-		
-		dist(i,j) = str2num(cells{1,cellNo});
-		
-		cellNo = cellNo + 1;
-	end
-end	
-
-for i = 1:n
-	for j = 1:n
-		if cellNo > size(cells,2)
-			tline = fgetl(fid);
-			cells = regexp(strtrim(tline), '\s{1,}', 'split');
-			cellNo = 1;
-		end
-		
-		while size(strtrim(tline), 2) == 0
-			tline = fgetl(fid);
-			cells = regexp(strtrim(tline), '\s{1,}', 'split');
-			cellNo = 1;
-		end
-		
-		flow(i,j) = str2num(cells{1,cellNo});
-		
-		cellNo = cellNo + 1;
-	end
-end	
-
+[A,count] = fscanf(fid,'%d');
 fclose(fid);
+
+n = A(1);
+if (count ~= 2*n^2 + 1) 
+    error(strcat("invalid datafile ",filename));
+end
+dist = reshape(A(2:n^2+1),n,n)';
+flow = reshape(A(n^2+2:2*n^2+1),n,n)';
+
+end

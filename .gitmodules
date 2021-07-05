@@ -10,3 +10,6 @@
 [submodule "Features"]
 	path = Features
 	url = git@github.com:jeffrey-chr/ISA-QAP-Features.git
+[submodule "ISA"]
+	path = ISA
+	url = git@github.com:jeffrey-chr/InstanceSpace.git

@@ -21,6 +21,14 @@ if exist .\Features\configure.bat (
     echo Feature measuring submodule not present
 )
 
+REM Configure the genetic instance generation code
+if exist .\InstanceGenerationGenetic\configure.bat (
+    echo Configuring instance generation submodule
+    .\InstanceGenerationGenetic\configure.bat %curdir%\Utilities %curdir%\Features
+) else (
+    echo Instance generation submodule not present
+)
+
 REM make algorithm data folder
 if not exist .\AlgorithmData (
     echo Creating algorithm data directory .\AlgorithmData

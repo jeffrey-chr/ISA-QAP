@@ -27,7 +27,6 @@ for i = 1:n
     fprintf(fid,"\n");
 end
 
-
 fclose(fid);
 
 end

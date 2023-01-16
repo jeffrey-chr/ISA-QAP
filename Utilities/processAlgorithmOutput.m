@@ -11,6 +11,7 @@ function processAlgorithmOutput(inputDir,outputDir)
     algorithm=cell(1,length(flist)-2);
     solutions=-ones(1,length(flist)-2);
     instname=cell(1,length(flist)-2);
+    alltrials=cell(1,length(flist)-2);
     
     for i = 3:length(flist)
     
@@ -41,6 +42,15 @@ function processAlgorithmOutput(inputDir,outputDir)
                 tline = fgetl(fileID);
                 solutions(i-2)=str2num(tline);
             end
+            if strcmp(tline,'TRIALS:')
+                tline = fgetl(fileID);
+                alltrials{i-2} = [];
+                while ~strcmp(tline,'TRIALSEND')
+                    tok = strsplit(tline, ',');
+                    alltrials{i-2}(end+1) = str2num(tok{2});
+                    tline = fgetl(fileID);
+                end
+            end
             
             if length(tline) >= 9 && strcmp(tline(1:9),'ABORTING:')
                 runtime(i-2)=0;
@@ -57,7 +67,7 @@ function processAlgorithmOutput(inputDir,outputDir)
     outtables = cell(length(algnames),1);
     
     for i = 1:length(algnames)
-        outtables{i} = cell(1,4);
+        outtables{i} = cell(1,5);
     end
     
     count = zeros(length(algnames),1);
@@ -73,11 +83,12 @@ function processAlgorithmOutput(inputDir,outputDir)
                 outtables{j}{count(j),2} = solutions(i);
                 outtables{j}{count(j),3} = runtime(i);
                 outtables{j}{count(j),4} = instsize(i);
+                outtables{j}{count(j),5} = alltrials{i};
             end
         end
     end
     
-    colnames = ["Name","AverageSoln","AvgRuntimeForBest","InstSize"];
+    colnames = ["Name","AverageSoln","AvgRuntimeForBest","InstSize","AllTrials"];
     
     for i = 1:length(algnames)
         tble = cell2table(outtables{i},'VariableNames',colnames);

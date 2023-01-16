@@ -7,6 +7,9 @@
 [submodule "InstanceGeneration"]
 	path = InstanceGeneration
 	url = git@github.com:jeffrey-chr/ISA-QAP-InstanceGeneration.git
+[submodule "InstanceGenerationGenetic"]
+	path = InstanceGenerationGenetic
+	url = git@github.com:jeffrey-chr/ISA-QAP-InstanceGenerationGenetic.git
 [submodule "Features"]
 	path = Features
 	url = git@github.com:jeffrey-chr/ISA-QAP-Features.git

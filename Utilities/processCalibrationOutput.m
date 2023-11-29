@@ -11,6 +11,8 @@ function p = processCalibrationOutput(inputDir)
     algorithm=cell(1,length(flist)-2);
     solutions=-ones(1,length(flist)-2);
     instname=cell(1,length(flist)-2);
+    shortname=cell(1,length(flist)-2);
+    sourcelist=cell(1,length(flist)-2);
     
     for i = 3:length(flist)
     
@@ -86,6 +88,34 @@ function p = processCalibrationOutput(inputDir)
     instsize = instsize - 25;
     runtime = max(runtime, 1);
 
+    [~, ~, libsource] = qap_DefineSources();
+    for i=3:length(flist)
+        tmp = split(instname{i-2},'/');
+        tmp2 = tmp{end};
+        tmp3 = split(tmp2,'.');
+        shortname{i-2} = tmp3{1};
+        alphaonly = shortname{i-2}(isstrprop(shortname{i-2},'alpha'));
+
+        found = 0;
+        for s = 1:size(libsource,1)
+            if ~isempty(regexp(alphaonly,libsource(s,2),'ONCE'))
+                if found > 0
+                    error('Regex clash')
+                else
+                    found = s;
+                end
+            end
+        end
+        if found > 0
+            sourcelist{i-2} = libsource(found,1);
+        else
+            sourcelist{i-2} = "None";
+        end
+    end
+    sourcelist = cellstr(sourcelist);
+
+    qaplibindex = find(contains(sourcelist,"QAPLIB"));
+
     figure
     scatter(instsize, runtime)
     p2 = polyfit(instsize, runtime, 2);
@@ -102,6 +132,7 @@ function p = processCalibrationOutput(inputDir)
 %     plot(x1,y4)
 %     y5 = polyval(p5,x1);
 %     plot(x1,y5)
+    scatter(instsize(qaplibindex),runtime(qaplibindex),'red','x')
     hold off
     
     p = {p2, p3, p4, p5};

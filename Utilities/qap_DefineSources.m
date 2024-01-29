@@ -6,7 +6,10 @@ sources = [
     "ManhattanDist", "^nug.*$|^sko.*$|^wil.*$|^had.*$|^scr.*$|^tho.*$|^stf.*m[prs].*$";
     "RealLife", "^ste.*$|^els.*$|^bur.*$|^kra.*$|^esc.*$";
     "RealLifeLike", "^tai.*b.*$|^stf.*e[prs].*|^xtab.*$";
-    "Other", "^lipa.*$|^chr.*$|^tai.*c.*$|^Palu.*$|^dre.*$|^xPalu.*$"
+    "Other", "^lipa.*$|^chr.*$|^tai.*c.*$|^dre.*$";
+    "Palubeckis", "^xPalu.*$|^Palu.*$";
+    "PaluEuclidean", "^xPaEu.*";
+
     "Terminal", "^term.*$"
     "TaiE", "^tai.*e.*$|^xtai.*e.*$"
     "Hypercube", "^hyp.*$"
@@ -33,6 +36,7 @@ subsources = [
 	"other-qaplib-chr", "^chr.*$";
     "other-palubeckis", "^Palu.*$"; % some weird construction
     "other-gen-palubeckis", "^xPalu.*$"
+    "other-gen-palueuclid", "^xPaEu.*$"
     "other-drezner", "^dre.*$";
     "taiE-bench", "^tai.*e.*$";
     "taiE-gen", "^xtai.*e.*$";
@@ -41,9 +45,9 @@ subsources = [
     "terminal-gen", "^term.*$";
     "hypercube-gen", "^hyp.*$";
     "random-gen", "^xran.*";
-    "gen-SF-man-ran", "^stf.*mr.*$" % Euclidean distances, random flows
-    "gen-SF-man-str", "^stf.*ms.*$" % Euclidean distances, structured flows
-    "gen-SF-man-plu", "^stf.*mp.*$" % Euclidean distances, structured flows plus
+    "manhat-gen-SF-ran", "^stf.*mr.*$" % Euclidean distances, random flows
+    "manhat-gen-SF-str", "^stf.*ms.*$" % Euclidean distances, structured flows
+    "manhat-gen-SF-plu", "^stf.*mp.*$" % Euclidean distances, structured flows plus
     "reallike-SF-euc-ran", "^stf.*er.*$" % Grid distances, random flows
     "reallike-SF-euc-str", "^stf.*es.*$" % Grid distances, structured flows
     "reallike-SF-euc-plu", "^stf.*ep.*$" % Grid distances, structured flows plus

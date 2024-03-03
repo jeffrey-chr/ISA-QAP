@@ -116,23 +116,31 @@ function p = processCalibrationOutput(inputDir)
 
     qaplibindex = find(contains(sourcelist,"QAPLIB"));
 
+    not_trivial = ((instsize < 90) + (runtime > 0) == 2);
+
+    instsize_nt = instsize(not_trivial);
+    runtime_nt = runtime(not_trivial);
+
     figure
-    scatter(instsize, runtime)
-    p2 = polyfit(instsize, runtime, 2);
-    p3 = polyfit(instsize, runtime, 3);
-    p4 = polyfit(instsize, runtime, 4);
-    p5 = polyfit(instsize, runtime, 5);
+    scatter(instsize_nt, runtime_nt)
+    p2 = polyfit(instsize_nt, runtime_nt, 2);
+    p3 = polyfit(instsize_nt, runtime_nt, 3);
+    p4 = polyfit(instsize_nt, runtime_nt, 4);
+    p5 = polyfit(instsize_nt, runtime_nt, 5);
+    pz = [0.001, -0.085, 4.45, -14.7];
     hold on
-    x1 = linspace(0,175);
+    x1 = linspace(0,110);
     y2 = polyval(p2,x1);
-    plot(x1,y2)
+    plot(x1,y2,"Red")
     y3 = polyval(p3,x1);
-    plot(x1,y3)
+    plot(x1,y3,"Blue")
+    yz = polyval(pz,x1);
+    plot(x1,yz,"Green")
 %     y4 = polyval(p4,x1);
 %     plot(x1,y4)
 %     y5 = polyval(p5,x1);
 %     plot(x1,y5)
-    scatter(instsize(qaplibindex),runtime(qaplibindex),'red','x')
+    %scatter(instsize(qaplibindex),runtime(qaplibindex),'red','x')
     hold off
     
     p = {p2, p3, p4, p5};

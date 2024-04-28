@@ -12,6 +12,7 @@ function processAlgorithmOutput(inputDir,outputDir)
     solutions=-ones(1,length(flist)-2);
     instname=cell(1,length(flist)-2);
     alltrials=cell(1,length(flist)-2);
+    alltimes=cell(1,length(flist)-2);
     
     for i = 3:length(flist)
     
@@ -48,6 +49,7 @@ function processAlgorithmOutput(inputDir,outputDir)
                 while ~strcmp(tline,'TRIALSEND')
                     tok = strsplit(tline, ',');
                     alltrials{i-2}(end+1) = str2num(tok{2});
+                    alltimes{i-2}(end+1) = str2num(extractBefore(tok{4},'s'));
                     tline = fgetl(fileID);
                 end
             end
@@ -61,6 +63,14 @@ function processAlgorithmOutput(inputDir,outputDir)
         end
 
         fclose(fileID);
+
+        % check to see if we need to calculate these manually
+        if runtime(i-2) == -1
+            runtime(i-2) = sum(alltimes{i-2})/length(alltimes{i-2});
+        end
+        if solutions(i-2) == -1
+            solutions(i-2) = sum(alltrials{i-2})/length(alltrials{i-2});
+        end
 
     end
     

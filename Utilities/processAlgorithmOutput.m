@@ -94,11 +94,12 @@ function processAlgorithmOutput(inputDir,outputDir)
                 outtables{j}{count(j),3} = runtime(i);
                 outtables{j}{count(j),4} = instsize(i);
                 outtables{j}{count(j),5} = alltrials{i};
+                outtables{j}{count(j),6} = alltimes{i};
             end
         end
     end
     
-    colnames = ["Name","AverageSoln","AvgRuntimeForBest","InstSize","AllTrials"];
+    colnames = ["Name","AverageSoln","AvgRuntimeForBest","InstSize","AllTrials","AllTimes"];
     
     for i = 1:length(algnames)
         tble = cell2table(outtables{i},'VariableNames',colnames);

@@ -10,13 +10,15 @@ sources = [
     "Palubeckis", "^xPalu.*$|^Palu.*$";
     "PaluEuclidean", "^xPaEu.*";
 
-    "Terminal", "^term.*$"
-    "TaiE", "^tai.*e.*$|^xtai.*e.*$"
-    "Hypercube", "^hyp.*$"
+    "Terminal", "^term.*$";
+    "TaiE", "^tai.*e.*$|^xtai.*e.*$";
+    "Hypercube", "^hyp.*$";
+    "QAPSAT", "^qapsat.*$"
     ];
 
 libsource = [
     "QAPLIB", "^rou.*$|^tai.*a.*$|^nug.*$|^sko.*$|^wil.*$|^had.*$|^scr.*$|^tho.*$|^ste.*$|^els.*$|^bur.*$|^kra.*$|^esc.*$|^tai.*b.*$|^lipa.*$|^tai.*c.*$|^chr.*$"
+    "reallike-gen", "^stf.*e[prs].*|^xtab.*|^stf.*m[prs].*$$"
     ];
 
 % sources = [
@@ -45,12 +47,14 @@ subsources = [
     "terminal-gen", "^term.*$";
     "hypercube-gen", "^hyp.*$";
     "random-gen", "^xran.*";
-    "manhat-gen-SF-ran", "^stf.*mr.*$" % Euclidean distances, random flows
-    "manhat-gen-SF-str", "^stf.*ms.*$" % Euclidean distances, structured flows
-    "manhat-gen-SF-plu", "^stf.*mp.*$" % Euclidean distances, structured flows plus
-    "reallike-SF-euc-ran", "^stf.*er.*$" % Grid distances, random flows
-    "reallike-SF-euc-str", "^stf.*es.*$" % Grid distances, structured flows
-    "reallike-SF-euc-plu", "^stf.*ep.*$" % Grid distances, structured flows plus
+    "manhat-gen-SF-ran", "^stf.*mr.*$"; % Euclidean distances, random flows
+    "manhat-gen-SF-str", "^stf.*ms.*$"; % Euclidean distances, structured flows
+    "manhat-gen-SF-plu", "^stf.*mp.*$"; % Euclidean distances, structured flows plus
+    "reallike-SF-euc-ran", "^stf.*er.*$"; % Grid distances, random flows
+    "reallike-SF-euc-str", "^stf.*es.*$"; % Grid distances, structured flows
+    "reallike-SF-euc-plu", "^stf.*ep.*$"; % Grid distances, structured flows plus
+    "qapsat-gen-easy", "^qapsatE.*$";
+    "qapsat-gen-hard", "^qapsatH.*$";
     ];
 
 end

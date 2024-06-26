@@ -2,7 +2,7 @@ function processAlgorithmOutput(inputDir,outputDir)
 %READALGORITHMOUTPUT Summary of this function goes here
 %   Detailed explanation goes here
     
-    algnames = ["BLS","BMA","MMAS"];
+    algnames = ["BMA","MMAS"];
     
     flist = dir(inputDir);
     

@@ -1,8 +1,9 @@
-function p = processCalibrationOutput(inputDir)
+function [p, ye] = processCalibrationOutput(inputDir)
 %READALGORITHMOUTPUT Summary of this function goes here
 %   Detailed explanation goes here
     
-    algnames = ["BLS","BMA","MMAS"];
+    %algnames = ["BLS","BMA","MMAS"];
+    algnames = ["BMA","MMAS"];
     
     flist = dir(inputDir);
     
@@ -13,6 +14,8 @@ function p = processCalibrationOutput(inputDir)
     instname=cell(1,length(flist)-2);
     shortname=cell(1,length(flist)-2);
     sourcelist=cell(1,length(flist)-2);
+    alltrials=cell(1,length(flist)-2);
+    alltimes=cell(1,length(flist)-2);
     
     for i = 3:length(flist)
     
@@ -43,11 +46,22 @@ function p = processCalibrationOutput(inputDir)
                 tline = fgetl(fileID);
                 solutions(i-2)=str2num(tline);
             end
+            if strcmp(tline,'TRIALS:')
+                tline = fgetl(fileID);
+                alltrials{i-2} = [];
+                while ~strcmp(tline,'TRIALSEND')
+                    tok = strsplit(tline, ',');
+                    alltrials{i-2}(end+1) = str2num(tok{2});
+                    alltimes{i-2}(end+1) = str2num(extractBefore(tok{4},'s'));
+                    tline = fgetl(fileID);
+                end
+            end
             
             if length(tline) >= 9 && strcmp(tline(1:9),'ABORTING:')
                 runtime(i-2)=0;
                 solutions(i-2)=0;
             end
+            
 
             tline = fgetl(fileID);
         end
@@ -85,7 +99,7 @@ function p = processCalibrationOutput(inputDir)
 %         tble = cell2table(outtables{i},'VariableNames',colnames);
 %         writetable(tble,strcat(outputDir,algnames(i),"data.csv"));
 %     end
-    instsize = instsize - 25;
+    %instsize = instsize - 25;
     runtime = max(runtime, 1);
 
     [~, ~, libsource] = qap_DefineSources();
@@ -114,35 +128,52 @@ function p = processCalibrationOutput(inputDir)
     end
     sourcelist = cellstr(sourcelist);
 
-    qaplibindex = find(contains(sourcelist,"QAPLIB"));
+    qaplibindex = contains(sourcelist,"QAPLIB");
+    index2= contains(sourcelist,"reallike-gen");
+    wanted = qaplibindex + index2;
 
-    not_trivial = ((instsize < 90) + (runtime > 0) == 2);
+    for i = 1:length(runtime)
+        runtime(i) = mean(alltimes{i});
+    end
 
-    instsize_nt = instsize(not_trivial);
-    runtime_nt = runtime(not_trivial);
+    not_trivial = ((instsize < 130) + (runtime > -1) == 2);
+
+    inc = (not_trivial + wanted == 2);
+
+    instsize_nt = instsize(inc);
+    runtime_nt = runtime(inc);
 
     figure
     scatter(instsize_nt, runtime_nt)
+    p1 = polyfit(instsize_nt, runtime_nt, 1);
     p2 = polyfit(instsize_nt, runtime_nt, 2);
     p3 = polyfit(instsize_nt, runtime_nt, 3);
     p4 = polyfit(instsize_nt, runtime_nt, 4);
     p5 = polyfit(instsize_nt, runtime_nt, 5);
     pz = [0.001, -0.085, 4.45, -14.7];
     hold on
-    x1 = linspace(0,110);
+    x1 = linspace(0,128);
+    y1 = polyval(p1,x1);
+    plot(x1,y1,"Cyan")
     y2 = polyval(p2,x1);
     plot(x1,y2,"Red")
     y3 = polyval(p3,x1);
     plot(x1,y3,"Blue")
     yz = polyval(pz,x1);
     plot(x1,yz,"Green")
+    exp5 = '5*exp(a*(x-25))';
+    %exp5 = '5*exp(a*x)+b*x+c*x*x';
+    ye = fit(instsize_nt', runtime_nt', 'exp1');
+    %ye = fit(instsize_nt', runtime_nt', exp5, 'Start', [0.05]);
+    plot(ye,"Magenta")
+    
 %     y4 = polyval(p4,x1);
 %     plot(x1,y4)
 %     y5 = polyval(p5,x1);
 %     plot(x1,y5)
     %scatter(instsize(qaplibindex),runtime(qaplibindex),'red','x')
     hold off
-    
+    xlim([0,128])
     p = {p2, p3, p4, p5};
 
 end

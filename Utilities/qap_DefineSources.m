@@ -16,7 +16,7 @@ sources = [
     "QAPSAT", "^qapsat.*$";
 
     "Recombined", "^recomb.*$";
-    "FlowCluster", "^treeflow.*$|^tcycle.*$";
+    "FlowCluster", "^treeflow.*$|^tcycle.*$|^squares.*$";
     ];
 
 libsource = [
@@ -83,8 +83,10 @@ subsources = [
     "recombined-ddrez-fpalu", "^recomb.*Ddrez.*Fpalu.*$";
     "flowcluster-dhyper-ftree", "^treeflow.*Dhyper.*$";
     "flowcluster-dhyper-fcycle", "^tcycle.*Dhyper.*$";
+    "flowcluster-dhyper-fsquare", "^squares.*Dhyper.*$";
     "flowcluster-ddrez-ftree", "^treeflow.*Ddrez.*$";
     "flowcluster-ddrez-fcycle", "^tcycle.*Ddrez.*$";
+    "flowcluster-ddrez-fsquare", "^squares.*Ddrez.*$";
     ];
 
 end

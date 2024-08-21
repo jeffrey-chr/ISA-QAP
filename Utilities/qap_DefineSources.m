@@ -13,7 +13,10 @@ sources = [
     "Terminal", "^term.*$";
     "TaiE", "^tai.*e.*$|^xtai.*e.*$";
     "Hypercube", "^hyp.*$";
-    "QAPSAT", "^qapsat.*$"
+    "QAPSAT", "^qapsat.*$";
+
+    "Recombined", "^recomb.*$";
+    "FlowCluster", "^treeflow.*$|^tcycle.*$";
     ];
 
 libsource = [
@@ -55,6 +58,33 @@ subsources = [
     "reallike-SF-euc-plu", "^stf.*ep.*$"; % Grid distances, structured flows plus
     "qapsat-gen-easy", "^qapsatE.*$";
     "qapsat-gen-hard", "^qapsatH.*$";
+    "recombined-dterm-fstrp", "^recomb.*Dterm.*Fstrp.*$";
+    "recombined-dterm-frand", "^recomb.*Dterm.*Frand.*$";
+    "recombined-dterm-fpalu", "^recomb.*Dterm.*Fpalu.*$";
+    "recombined-dterm-fhypr", "^recomb.*Dterm.*Fhypr.*$";
+    "recombined-drand-fstrp", "^recomb.*Drand.*Fstrp.*$";
+    "recombined-drand-fterm", "^recomb.*Drand.*Fterm.*$";
+    "recombined-drand-fpalu", "^recomb.*Drand.*Fpalu.*$";
+    "recombined-drand-fhypr", "^recomb.*Drand.*Fhypr.*$";
+    "recombined-dpalu-fstrp", "^recomb.*Dpalu.*Fstrp.*$";
+    "recombined-dpalu-frand", "^recomb.*Dpalu.*Frand.*$";
+    "recombined-dpalu-fterm", "^recomb.*Dpalu.*Fterm.*$";
+    "recombined-dpalu-fhypr", "^recomb.*Dpalu.*Fhypr.*$";
+    "recombined-dhypr-fstrp", "^recomb.*Dhypr.*Fstrp.*$";
+    "recombined-dhypr-frand", "^recomb.*Dhypr.*Frand.*$";
+    "recombined-dhypr-fpalu", "^recomb.*Dhypr.*Fpalu.*$";
+    "recombined-dhypr-fhypr", "^recomb.*Dhypr.*Fterm.*$";
+    "recombined-deucl-fterm", "^recomb.*Deucl.*Fterm.*$";
+    "recombined-deucl-fpalu", "^recomb.*Deucl.*Fpalu.*$";
+    "recombined-deucl-fhypr", "^recomb.*Deucl.*Fhypr.*$";
+    "recombined-dmanh-fpalu", "^recomb.*Dmanh.*Fpalu.*$";
+    "recombined-ddrez-fstrp", "^recomb.*Ddrez.*Fstrp.*$";
+    "recombined-ddrez-frand", "^recomb.*Ddrez.*Frand.*$";
+    "recombined-ddrez-fpalu", "^recomb.*Ddrez.*Fpalu.*$";
+    "flowcluster-dhyper-ftree", "^treeflow.*Dhyper.*$";
+    "flowcluster-dhyper-fcycle", "^tcycle.*Dhyper.*$";
+    "flowcluster-ddrez-ftree", "^treeflow.*Ddrez.*$";
+    "flowcluster-ddrez-fcycle", "^tcycle.*Ddrez.*$";
     ];
 
 end

@@ -17,6 +17,8 @@ sources = [
 
     "Recombined", "^recomb.*$";
     "FlowCluster", "^treeflow.*$|^tcycle.*$|^squares.*$";
+
+    "EvolvedFlow", "^evoflow.*$"
     ];
 
 libsource = [
@@ -87,6 +89,14 @@ subsources = [
     "flowcluster-ddrez-ftree", "^treeflow.*Ddrez.*$";
     "flowcluster-ddrez-fcycle", "^tcycle.*Ddrez.*$";
     "flowcluster-ddrez-fsquare", "^squares.*Ddrez.*$";
+    "EvolvedFlow-stf60er1", "^evoflow.*stf.*er.*$";
+    "EvolvedFlow-stf60es2", "^evoflow.*stf.*es.*$";
+    "EvolvedFlow-stf100ep3", "^evoflow.*stf.*ep.*$";
+    "EvolvedFlow-hyp64!3", "^evoflow.*hyp.*$";
+    "EvolvedFlow-xran70A1", "^evoflow.*xran.*$";
+    "EvolvedFlow-dre72", "^evoflow.*dre.*$";
+    "EvolvedFlow-sko72", "^evoflow.*sko.*$";
+    "EvolvedFlow-term75!4", "^evoflow.*term.*$";
     ];
 
 end

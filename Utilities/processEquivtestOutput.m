@@ -2,7 +2,7 @@ function processEquivtestOutput(inputDir,outputDir)
 %READALGORITHMOUTPUT Summary of this function goes here
 %   Detailed explanation goes here
     
-    algnames = ["BLS","BMA","MMAS"];
+    algnames = ["BMA","MMAS"];
     
     flist = dir(inputDir);
     
@@ -36,7 +36,7 @@ function processEquivtestOutput(inputDir,outputDir)
             end
             if strcmp(tline,'AVERAGETIMEFORBEST:')
                 tline = fgetl(fileID);
-                runtime(i-2)=str2double(tline);
+                %runtime(i-2)=str2double(tline);
             end
             if strcmp(tline,'INSTANCESIZE:')
                 tline = fgetl(fileID);
@@ -44,24 +44,37 @@ function processEquivtestOutput(inputDir,outputDir)
             end
             if strcmp(tline,'ADJUSTEDSOLN:')
                 tline = fgetl(fileID);
-                solutions(i-2)=str2num(tline);
+                %solutions(i-2)=str2num(tline);
             end
             if strcmp(tline,'TRIALS:')
                 allruntimes{i-2} = -ones(50,1);
                 allsolutions{i-2} = -ones(50,1);
                 tcount = 0;
                 tline = fgetl(fileID);
-                while ~strcmp(tline,'TRIALSEND')
-                    tcount = tcount + 1;
-                    data = strsplit(tline,',');
-                    allsolutions{i-2}(tcount) = str2double(data{3});
-                    allruntimes{i-2}(tcount) = str2double(data{4}(1:end-1));
+                foundend = false;
+                if strcmp(tline,'TRIALSEND')
+                    foundend = true;
+                end
+                while (~foundend)
+                    if startsWith(tline,'Trial')
+                        tcount = tcount + 1;
+                        data = strsplit(tline,',');
+                        allsolutions{i-2}(tcount) = str2double(data{3});
+                        allruntimes{i-2}(tcount) = str2double(data{4}(1:end-1));
+                    end
                     tline = fgetl(fileID);
+                    if strcmp(tline,'TRIALSEND')
+                        foundend = true;
+                    end
                 end
                 allruntimes{i-2} = allruntimes{i-2}(1:tcount);
                 allsolutions{i-2} = allsolutions{i-2}(1:tcount);
+                runtime(i-2) = mean(allruntimes{i-2});
+                solutions(i-2) = mean(allsolutions{i-2});
             end
             
+            
+
             if length(tline) >= 9 && strcmp(tline(1:9),'ABORTING:')
                 runtime(i-2)=0;
                 solutions(i-2)=0;

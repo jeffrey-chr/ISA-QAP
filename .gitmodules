@@ -16,3 +16,6 @@
 [submodule "ISA"]
 	path = ISA
 	url = git@github.com:jeffrey-chr/InstanceSpace.git
+[submodule "InstanceGenerationExtension"]
+	path = InstanceGenerationExtension
+	url = https://github.com/jeffrey-chr/ISA-QAP-InstanceGenerationExtension
